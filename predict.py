@@ -5,21 +5,21 @@ import kenlm
 def predict(model_path, voc_path):
     # load language model with KenLM
     model = kenlm.Model(model_path)
-    print("Language Model at " + model_path + "loaded.")
+    print("Language Model at " + model_path + " loaded.")
     
     # load vocabulary (or load word list)
     voc = []
     file_reader = open(voc_path, "r", encoding='utf-8')
     for line in file_reader:
         voc.append(line.strip())
-    print("Vocabulary at " + voc_path + "loaded\n")
+    print("Vocabulary at " + voc_path + " loaded\n")
 
-sequence = input('Sequence: ')
+    sequence = input('Sequence: ')
 
-print("Given sequence: " + sequence)
+    print("Given sequence: " + sequence)
 
-# prediction loop
-loop_condition = True
+    # prediction loop
+    loop_condition = True
     while loop_condition:
         score_current = model.score(sequence, bos=True, eos=False)
         score_end = model.score(sequence, bos=True, eos=True)
@@ -36,8 +36,8 @@ loop_condition = True
     
         if score_next > score_end:
             sequence = sequence_next
-else:
-    loop_condition = False
+        else:
+            loop_condition = False
     
     print("Result: " + sequence)
     
